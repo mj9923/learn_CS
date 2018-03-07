@@ -1,0 +1,25 @@
+Lists: n is len(L)
+  index o(1)
+  store o(1)
+  length o(1)
+  append o(1)
+  == o(n)
+  remove o(n)
+  copy o(n)
+  reverse o(n)
+  iteration o(n)
+  in list o(n)
+
+Dictionaries: n is len(d)
+  worst case
+    index o(n)
+    store o(n)
+    length o(n)
+    delete o(n)
+    iteration o(n)
+
+  average case
+    index o(1)
+    store o(1)
+    delete o(1)
+    iteration o(n)
