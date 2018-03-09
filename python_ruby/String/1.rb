@@ -1,1 +1,1 @@
-puts("egoing's \"tutorial\"")
+puts(Math.sqrt(16))
