@@ -25,6 +25,11 @@ class CalMultiply < Cal
   end
 end
 
+class CalDivide < CalMultiply
+  def divide()
+    return @v1/@v2
+  end
+end    # 
 c1 = CalMultiply.new(10,10)
 p c1.add()
 p c1.multiply
