@@ -1,49 +1,48 @@
-WORDLIST_FILENAME = "words.txt"
-
-def load_words():
-    """
-    Returns a list of valid words. Words are strings of lowercase letters.
-
-    Depending on the size of the word list, this function may
-    take a while to finish.
-    """
-
-    print("Loading word list from file...")
-    # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r')
-    # wordlist: list of strings
-    wordlist = []
-    for line in inFile:
-        wordlist.append(line.strip().lower())
-    print("  ", len(wordlist), "words loaded.")
-    return wordlist
-
-def is_valid_word(word, hand, word_list):
-    check_word = word.lower()
-    check_hand=hand.copy()
-    check_word_list=word_list
-    print(check_word_list)
-    check_2 =""
-    for letter in check_word:
-        if check_hand.has_key(letter):
-            if check_hand[letter] != 0:
-                check_hand[letter] -= 1
-                check_2+=letter
-    if check_2==check_word:
-        for i in check_word_list:
-            if i == word.lower():
-                return True
-            else:
-                return False
+def substitute_hand(hand, letter):
+    if hand.has_key(letter):
+        alphabet=(VOWELS+CONSONANTS).replace(letter,"")
+        x=random.choice(alphabet)
+        hand.replace(letter, x)
+        replace=True
     else:
-        return False
+        print("That letter is not in your hand.")
+        replace=False
 
-if __name__ == '__main__':
-    word_list = load_words()
+def play_game(word_list):
+    total_num_hands=int(input("Enter total number of hands:"))
+    overall_score=0
+    replay =0
+    #0.start of the game loop
+    while total_num_hands!=0
+        #1. setting up initial variables
+        total_score=0
+        hand = deal_hand(HAND_SIZE)
+        #1-1 print current hand
+        print("Current hand:", display_hand(hand))
 
-#print(is_valid_word('hello', {'h': 1, 'e': 1, 'l': 2, 'o': 1}, word_list))
-is_valid_word('hEllo', {'h': 1, 'e': 1, 'l': 2, 'o': 1}, word_list)
+        sub_letter=str(input("Would you like to substitute a letter?"))
+        if substitute == "yes":
+            while replace==False:
+                letter=str(input("Which letter would you like to replace:"))
+                hand=hand
+                substitute_hand(hand, letter)
+        elif substitute == "no":
+            continue
+        #리플레이를 한 적이 없다면 리플레이를 묻는다
+        #리플레이는 한 번 하면 다시 루프를 만들지 않는다.
+        if replay==0
+            play_hand(hand,word_list)
+            #ask for replay
+            rep=str(input("Would you like to replay hand?"))
+            if rep=="yes":
+                replay==1
+                play_hand(hand,word_list)
+            if rep =="no":
+                replay=0
+        elif replay==1
+            play_hand(hand,word_list)
 
-#print(is_valid_word('honey', {'e': 2, 'd': 1, 'h': 1, 'o': 1, 'n': 1, 'w': 1, 'y': 1}, word_list))
-
-#print(is_valid_word('EVIL', {'i': 1, 'n': 1, 'e': 1, 'l': 2, 'v': 2}, word_list))
+        overall_score+=total_score
+        total_num_hands-=1
+    print("Total score over all hands:", overall_score)
+    
