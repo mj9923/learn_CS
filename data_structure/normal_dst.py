@@ -75,3 +75,13 @@ def getEst(numNeedles, numTrials):
     curEst = sum(estimates)/len(estimates)
     print('Est. = ' + str(curEst) + ', Std. dev. =' + str(round(sDev, 6)) + ', Needles = ' + str(numNeedles))
     return(curEst, sDev)
+
+def estPi(precision, numTrials):
+    numNeedles = 1000
+    sDev = precision
+    while sDev >= precision/2:
+        curEst, sDev = getEst(numNeedles, numTrials)
+
+        numNeedles *= 2
+    return curEst
+estPi(0.005, 100)
