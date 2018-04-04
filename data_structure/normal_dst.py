@@ -84,4 +84,4 @@ def estPi(precision, numTrials):
 
         numNeedles *= 2
     return curEst
-estPi(0.005, 100)
+estPi(0.005, 1008)
