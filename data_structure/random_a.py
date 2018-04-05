@@ -26,7 +26,7 @@ def runSim(goal, numTrials):
 runSim('11111', 10)
 
 def sameDate(numPeople, numSame):
-    possibleDates = range(366)
+    possibleDates = 4*list(range(0,57))+[58]+4*list(range(59,366))+4*list(range(180,270))
     birthdays = [0]*366
     for p in range(numPeople):
         birthDate=random.choice(possibleDates)
