@@ -65,3 +65,73 @@ class Graph(Digraph):
         Digraph.addEdge(self, edge)
         rev = Edge(edge.getDestination(), edge.getsource())
         Digraph.addEdge(self, rev)
+
+def buildCityGraph(graphType):
+    g = graphType()
+    for name in ('Boston', 'Providence', 'New York', 'Chicago', 'Denver', 'Phoenix', 'Los Angeles'):
+        g.addEdge(Edge(g.getNode('Boston'), g.getNode('Province')))
+        g.addEdge(Edge(g.getNode('Boston'), g.getNode('New York')))
+        g.addEdge(Edge(g.getNode('Province'), g.getNode('Boston')))
+        g.addEdge(Edge(g.getNode('Province'), g.getNode('New York')))
+        g.addEdge(Edge(g.getNode('New York'), g.getNode('Chicago')))
+        g.addEdge(Edge(g.getNode('Chicago'), g.getNode('Denver')))
+        g.addEdge(Edge(g.getNode('Chicago'), g.getNode('Phoenix')))
+        g.addEdge(Edge(g.getNode('Denver'), g.getNode('Phoenix')))
+        g.addEdge(Edge(g.getNode('Denver'), g.getNode('New York')))
+        g.addEdge(Edge(g.getNode('Los Angeles'), g.getNode('Boston')))
+        return g
+
+def printPath(path):
+    """Assumes path is a list of nodes"""
+    result = ''
+    for i in range(len(path)):
+        result = result + str(path[i])
+        if i != len(path) - 1:
+            result = result + '->'
+    return result
+
+def DFS(graph, start, end, path, shortest, toPrint = False):
+    """Assumes graph is a Digraph; start and end are nodes;
+    path and shortest are lists of nodes
+    Returns a shortest path from start to end in graph"""
+    path = path + [start]
+    if toPrint:
+        print('Current DFS path:', printPath(path))
+    if start == end:
+        return path
+    for node in graph.childrenOf(start):
+        if node not in path: #avoid cycles
+            newPath = DFS (graph, node, end, path, shortest, toPrint)
+            if newPath != None:
+                shortest = newPath
+    return shortest
+
+def shortestPath(graph, start, end, toPrint = False):
+    """Assumes graph is Digraph; start and end are nodes
+    Returns a shortest path from start to end in graph"""
+    return DFS(grpah, start, end, [], None, toPrint)
+
+def testSP(source, destination):
+    g = buildCityGraph(Digraph)
+    sp = shortestPath(g, g.getNode(source), g.getNode(destination), toPrint = True)
+    if sp != None:
+        print('Shortest path from', source, 'to', destination)
+
+testSP('Bostn', 'Chicago')
+
+def BFS(graph, start, end, toPrint = False):
+    initPath = [start]
+    pathQueue = [initPath]
+    while len(pathQueue) != 0:
+        #Get and remove oldest element in pathQueue
+        tmpPath = pathQueue.pop(0)
+        if toPrint:
+            print('Current BFS path:', printPath(tmpPath))
+        lastNode = tmpPath[-1]
+        if lastNode == end:
+            return tmpPath
+        for nextNode in graph.childrenOf(lastNode):
+            if nextNode not in tmpPath:
+                newPath = tmpPath + [nextNode]
+                pathQueue.append(newPath)
+    return None
