@@ -34,25 +34,28 @@ def get_permutations(sequence):
         for i in range(len(sequence)):
             num = len(sequence)
             llc = letter_list
+
             word_list=[sequence[i]]
-            while num != 0:
+            while num != 1:
                 word_list_2=[]
                 for j in range(len(word_list)):
-                    if len(word_list[j])!=1:
-                        for k in range(len(word_list[j])):
-                            if word_list[j][k] in llc:
-                                llc.remove(word_list[j][k])
+                    # if len(word_list[j])!=1:
+                    for k in range(len(word_list[j])):
+                        if word_list[j][k] in llc:
+                            llc.remove(word_list[j][k])
                     for l in range(len(llc)):
                         word_list_2.append(word_list[j] + llc[l])
                 word_list = word_list_2
                 llc = letter_list
                 num -= 1
+
             permutation_list += word_list
+            # print(permutation_list)
 
     #중복 제거
-    remove_overlap = []
-    [remove_overlap.append(i) for i in permutation_list if i not in remove_overlap]
-    permutation_list = remove_overlap
+    # remove_overlap = []
+    # [remove_overlap./append(i) for i in permutation_list if i not in remove_overlap]
+    # permutation_list = remove_overlap
 
     return permutation_list
 #
