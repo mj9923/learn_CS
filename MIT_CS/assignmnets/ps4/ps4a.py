@@ -25,8 +25,6 @@ def get_permutations(sequence):
     permutation_list = []
     if len(sequence) == 1:
         permutation_list.append(sequence)
-    elif len(sequence) == 2:
-        permutation_list.extend(sequence, sequence[1]+sequence[0])
     else:
         #create letter_list
         letter_list = []
@@ -34,27 +32,44 @@ def get_permutations(sequence):
             letter_list.append(sequence[i])
 
         for i in range(len(sequence)):
-            llc = letter_list
             num = len(sequence)
+            llc = letter_list
             word_list=[sequence[i]]
-            word_list_2
             while num != 0:
-                for j in range(num-1):
-                    for k in range(len(word_list)):
-                        pos = word_list[k]+
-                        word_list_2.append()
+                word_list_2=[]
+                for j in range(len(word_list)):
+                    if len(word_list[j])!=1:
+                        for k in range(len(word_list[j])):
+                            if word_list[j][k] in llc:
+                                llc.remove(word_list[j][k])
+                    for l in range(len(llc)):
+                        word_list_2.append(word_list[j] + llc[l])
+                word_list = word_list_2
+                llc = letter_list
                 num -= 1
+            permutation_list += word_list
 
+    #중복 제거
+    remove_overlap = []
+    [remove_overlap.append(i) for i in permutation_list if i not in remove_overlap]
+    permutation_list = remove_overlap
 
-if __name__ == '__main__':
-#    #EXAMPLE
-#    example_input = 'abc'
-#    print('Input:', example_input)
-#    print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
-#    print('Actual Output:', get_permutations(example_input))
+    return permutation_list
+#
+# if __name__ == '__main__':
+# #    #EXAMPLE
+# #    example_input = 'abc'
+# #    print('Input:', example_input)
+# #    print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
+# #    print('Actual Output:', get_permutations(example_input))
+#
+# #    # Put three example test cases here (for your sanity, limit your inputs
+# #    to be three characters or fewer as you will have n! permutations for a
+# #    sequence of length n)
+#
+#     example_input = 'abc'
+#     print('Input:' example_input)
+#     print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
+#     print('Actuap Output:')
 
-#    # Put three example test cases here (for your sanity, limit your inputs
-#    to be three characters or fewer as you will have n! permutations for a
-#    sequence of length n)
-
-    pass #delete this line and replace with your code here
+print(get_permutations('abc'))
