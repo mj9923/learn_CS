@@ -3,6 +3,7 @@
 # Name: <Michael Eusuk Jo>
 # Collaborators:
 # Time Spent: x:xx
+# This only deals with words that does not have overlapping words
 
 def get_permutations(sequence):
     '''
@@ -32,28 +33,29 @@ def get_permutations(sequence):
         for i in range(len(sequence)):
             letter_list.append(sequence[i])
 
-
         for i in range(len(sequence)):
             num = len(sequence)
             word_list = [sequence[i]]
+            word_num_list =['/%d/'%i]
             while num != 1:
                 word_list_2 = []
-                for j in word_list:
-                    word_letters =[]
+                word_num_list_2=[]
+                for j in range(len(word_num_list)):
                     llc = []
-                    for k in letter_list:
-                        if k not in j:
-                            llc.append(k)
-                    for k in llc:
-                        word_list_2.append(j+k)
+                    llcl=[]
+                    for k in range(len(letter_list)):
+                        if '/%d/'%k not in word_num_list[j]:
+                            llc.append(letter_list[k])
+                            llcl.append('/%d/'%k)
+                    for k in range(len(llc)):
+                        word_list_2.append(word_list[j]+llc[k])
+                        word_num_list_2.append(word_num_list[j]+llcl[k])
                 word_list = word_list_2
+                word_num_list = word_num_list_2
                 num -= 1
-            permutation_list += word_list
-
-    #중복 제거
-    # remove_overlap = []
-    # [remove_overlap.append(i) for i in permutation_list if i not in remove_overlap]
-    # permutation_list = remove_overlap
+            for word in word_list:
+                if word not in permutation_list:
+                    permutation_list.append(word)
 
     return permutation_list
 #
@@ -72,6 +74,7 @@ def get_permutations(sequence):
 #     print('Input:' example_input)
 #     print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
 #     print('Actuap Output:')
-
-print(get_permutations('aaabbbccc'))
-print(len(get_permutations('aaabbbccc')))
+word = 'abcdefghij'
+permu = get_permutations(word)
+print(permu)
+print(len(permu))
