@@ -54,7 +54,7 @@ def get_permutations(sequence):
     # remove_overlap = []
     # [remove_overlap.append(i) for i in permutation_list if i not in remove_overlap]
     # permutation_list = remove_overlap
-
+    # 
     return permutation_list
 #
 # if __name__ == '__main__':
